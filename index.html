@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0cb87f8cbd.js" crossorigin="anonymous"></script>
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="header__heading">
+            ToDoApp
+        </h1>
+    </div>
+    <main class="wrap">
+        <nav class="user-options">
+            <ul class="user-options__list">
+                <li class="user-options__option">
+                    Planned
+                </li>
+                <li class="user-options__option">
+                    Important
+                </li>
+                <li class="user-options__option">
+                    Pending
+                </li>
+                <li class="user-options__option">
+                    Done
+                </li>
+            </ul>
+        </nav>
+        <div class="tasks">
+            <div class="tasks__task">
+                <h2 class="tasks__task-heading">
+                    Build this app!
+                </h2>
+                <div class="tasks__task-info">
+                    Its very important due to inflation!
+                </div>
+                <div class="task-date">
+                    <i class="fa-solid fa-calendar"></i>
+                    02-06-2022
+                </div>
+            </div>
+        </div>
+        <div class="create-task">
+            <div class="create-task__btn">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+    </main>
+    <form class="task-form">
+        <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
+        <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info">
+        <input type="datetime-local" class="task-form__input task-form__input--date">
+
+        <div class="task-form__option">
+            <input type="radio" id="normal" value="normal" name="importance" class="task-form__radio" checked>
+            <label for="normal" class="task-form__label">Normal</label>
+        </div>
+        <div class="task-form__option">
+            <input type="radio" id="important" value="important" name="importance" class="task-form__radio">
+            <label for="important" class="task-form__label">Important</label>
+        </div>
+        <button class="task-form__btn">
+            Add Task
+        </button>
+    </form>
+</body>
+
+</html>
