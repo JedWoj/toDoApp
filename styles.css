@@ -153,6 +153,10 @@ html {
           transform: rotate(45deg);
 }
 
+.hidden {
+  display: none;
+}
+
 .task-form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -165,6 +169,7 @@ html {
   padding: 4rem;
   gap: 2rem;
   border-radius: 4px;
+  text-align: center;
 }
 
 .task-form__input {
@@ -224,5 +229,10 @@ html {
 
 .task-form__btn:hover {
   background-color: #FFC501;
+}
+
+.task-form__error {
+  color: #da1f1f;
+  font-size: 1.6rem;
 }
 /*# sourceMappingURL=styles.css.map */

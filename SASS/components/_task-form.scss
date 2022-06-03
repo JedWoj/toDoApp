@@ -5,6 +5,7 @@
     padding: 4rem;
     gap: 2rem;
     border-radius: 4px;
+    text-align: center;
 
     &__input {
         border: none;
@@ -54,5 +55,10 @@
         &:hover {
             background-color: $color-secondary;
         }
+    }
+
+    &__error {
+        color: $color-error;
+        font-size: 1.6rem;
     }
 }
