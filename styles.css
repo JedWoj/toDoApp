@@ -20,9 +20,56 @@ html {
   display: flex;
 }
 
+.tasks {
+  background-color: aqua;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+}
+
+.tasks-container {
+  width: 100%;
+}
+
 .header__heading {
   text-align: center;
   background-color: #FFC501;
+  color: #ffeffe;
+  padding: 2rem;
+}
+
+.task {
+  border: 2px solid white;
+}
+
+.user-options__list {
+  height: calc(100vh - 6.4rem);
+  background-color: #ffeffe;
+  list-style: none;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.user-options__option {
+  color: #25c2a5;
+  padding: 2rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.user-options__option:hover {
+  background-color: #25c2a5;
+  cursor: pointer;
   color: #ffeffe;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,24 @@
+.user-options {
+    &__list {
+        height: calc(100vh - 6.4rem);
+        background-color: $color-tertiary;
+        list-style: none;
+        display: grid;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__option {
+        color: $color-primary;
+        padding: 2rem;
+        font-size: 2rem;
+        text-transform: uppercase;
+        transition: 0.4s;
+
+        &:hover {
+            background-color: $color-primary;
+            cursor: pointer;
+            color: $color-tertiary;
+        }
+    }
+}
