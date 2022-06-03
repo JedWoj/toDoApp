@@ -1,0 +1,58 @@
+.task-form {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-tertiary;
+    padding: 4rem;
+    gap: 2rem;
+    border-radius: 4px;
+
+    &__input {
+        border: none;
+        outline: none;
+        padding: 1rem 2rem;
+        width: 30rem;
+
+        &--title {}
+
+        &--info {}
+
+        &--date {}
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__radio {
+        margin-right: 3px;
+    }
+
+    &__label {
+        font-size: 1.4rem;
+    }
+
+    &__btn {
+        width: 60%;
+        align-self: center;
+        border: none;
+        background-color: $color-primary;
+        color: $color-tertiary;
+        padding: 0.7rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .4s;
+        font-size: 1.6rem;
+
+        &:hover {
+            background-color: $color-secondary;
+        }
+    }
+}

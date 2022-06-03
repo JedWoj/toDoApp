@@ -1,0 +1,25 @@
+.create-task {
+    position: absolute;
+    bottom: 7vh;
+    right: 7vh;
+
+    &__btn {
+        background-color: $color-tertiary;
+        color: $color-secondary;
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 3rem;
+        transition: all 0.4s;
+        cursor: pointer;
+
+        &:hover {
+            transform: rotate(45deg);
+        }
+    }
+
+    &__icon {}
+}

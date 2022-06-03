@@ -40,7 +40,7 @@
         <div class="tasks-container">
             <div class="tasks">
                 <div class="task">
-                    <div class="task__wrap">
+                    <div class="task__txt-wrap">
                         <h2 class="task__heading">
                             Build this app!
                         </h2>
@@ -52,6 +52,7 @@
                             02-06-2022
                         </div>
                     </div>
+                    <i class="fa-solid fa-star task__star"></i>
                 </div>
                 <div class="task">
                     <div class="task__wrap">
@@ -151,32 +152,34 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="create-task">
+                <div class="create-task__btn">
+                    <i class="fa-solid fa-plus create-task__icon"></i>
+                </div>
             </div>
         </div>
     </main>
-    <div class="create-task">
-        <div class="create-task__btn">
-            <i class="fa-solid fa-plus"></i>
-        </div>
+    <div class="popup">
+        <form class="task-form">
+            <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
+            <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info">
+            <input type="datetime-local" class="task-form__input task-form__input--date">
+            <div class="task-form__options">
+                <div class="task-form__option">
+                    <input type="radio" id="normal" value="normal" name="importance" class="task-form__radio" checked>
+                    <label for="normal" class="task-form__label">Normal</label>
+                </div>
+                <div class="task-form__option">
+                    <input type="radio" id="important" value="important" name="importance" class="task-form__radio">
+                    <label for="important" class="task-form__label">Important</label>
+                </div>
+            </div>
+            <button class="task-form__btn">
+                Add Task
+            </button>
+        </form>
     </div>
-    <form class="task-form">
-        <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
-        <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info">
-        <input type="datetime-local" class="task-form__input task-form__input--date">
-
-        <div class="task-form__option">
-            <input type="radio" id="normal" value="normal" name="importance" class="task-form__radio" checked>
-            <label for="normal" class="task-form__label">Normal</label>
-        </div>
-        <div class="task-form__option">
-            <input type="radio" id="important" value="important" name="importance" class="task-form__radio">
-            <label for="important" class="task-form__label">Important</label>
-        </div>
-        <button class="task-form__btn">
-            Add Task
-        </button>
-    </form>
 </body>
 
 </html>

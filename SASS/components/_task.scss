@@ -1,11 +1,26 @@
 .task {
-    border: 2px solid white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem 2rem;
+    background-color: $color-secondary;
 
-    &__wrap {}
+    &__txt-wrap {}
 
-    &__heading {}
+    &__heading {
+        color: $color-primary;
+        font-size: 1.8rem;
+    }
 
-    &__info {}
+    &__info {
+        color: $color-tertiary;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
 
     &__date {}
+
+    &__star {
+        cursor: pointer;
+    }
 }

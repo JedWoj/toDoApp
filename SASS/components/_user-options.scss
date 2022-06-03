@@ -14,10 +14,10 @@
         font-size: 2rem;
         text-transform: uppercase;
         transition: 0.4s;
+        cursor: pointer;
 
         &:hover {
             background-color: $color-primary;
-            cursor: pointer;
             color: $color-tertiary;
         }
     }
