@@ -75,6 +75,7 @@ html {
           align-items: center;
   padding: 3rem 2rem;
   background-color: #FFC501;
+  max-width: 25rem;
 }
 
 .task__heading {
@@ -90,6 +91,7 @@ html {
 
 .task__star {
   cursor: pointer;
+  font-size: 1.6rem;
 }
 
 .user-options__list {
