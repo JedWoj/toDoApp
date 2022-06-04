@@ -1,4 +1,4 @@
-(()=> {    
+// (()=> {    
     const plusBtn = document.querySelector('.create-task'); 
     const popup = document.querySelector('.popup');
     const form = document.querySelector('.task-form');
@@ -10,12 +10,23 @@
     const importantTasks = [];
     const doneTasks = [];
     let stars;
-    let allTasks;
+    let allTasks = [];
+    let active;
+    let id = 0;
 
     const changeImportance = function(id) {
         const task = allTasks[id];
         task.importance === 'normal' ? task.importance = 'important' : task.importance = 'normal';
-        renderData(allTasks);
+        if (task.importance === 'normal') {
+            const idx = importantTasks.findIndex(tsk => tsk === allTasks[id]);
+            importantTasks.splice(idx,1);
+            normalTasks.push(task);
+        } else {
+            const idx = normalTasks.findIndex(tsk => tsk === allTasks[id]);
+            normalTasks.splice(idx,1);
+            importantTasks.push(task);
+        }
+        renderData(active);
     }
 
     const importanceHandler = function() {
@@ -30,16 +41,19 @@
             title,
             info,
             date,
-            importance
+            importance,
+            id,
         }
+        id++;
         importance === 'important' ? importantTasks.push(obj) : normalTasks.push(obj);
-        allTasks = [...normalTasks, ...importantTasks];
+        allTasks.push(obj);
+        active === undefined ? active = allTasks : active = active;
     }
 
     const renderData = function(data) {
         tasksContainer.innerHTML = '';
-        data.forEach((obj, id) => {
-                const div = `<div class="task" data-id='${id}'>
+        data.forEach((obj) => {
+                const div = `<div class="task" data-id='${obj.id}'>
                     <div class="task__txt-wrap">
                         <h2 class="task__heading">
                             ${obj.title}
@@ -53,6 +67,14 @@
                         </div>
                     </div>
                     <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
+                    <div class="task__btns">
+                        <div class="task__btn-edit">
+                            <i class="fa-solid fa-pen-to-square task__icon"></i>
+                        </div>
+                        <div class="task__btn-close">
+                            <i class="fa-solid fa-xmark task__icon"></i>
+                        </div>
+                    </div>
                 </div>`
                 tasksContainer.insertAdjacentHTML('beforeend', div);
         })
@@ -106,16 +128,20 @@
         switch(arr) {
             case 'allTasks':
                 renderData(allTasks);
+                active = allTasks;
                 break;
             case 'normalTasks': 
                 renderData(normalTasks);
+                active = normalTasks;
                 break;
             case 'importantTasks':
                 renderData(importantTasks);
+                active = importantTasks;
                 break;
             case 'doneTasks': 
                 renderData(doneTasks);
+                active = doneTasks;
                 break;
         }
     })
-})();
+// })();
