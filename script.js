@@ -17,23 +17,26 @@
     }
 
     const renderData = function() {
-
+        
     }
 
     const checkInputs = function() {
         const error = document.querySelector('.task-form__error');
-        let title = document.querySelector('.task-form__input--title').value;
-        let additionalInfo = document.querySelector('.task-form__input--info').value;
-        let date = document.querySelector('.task-form__input--date').value;
+        const title = document.querySelector('.task-form__input--title');
+        const additionalInfo = document.querySelector('.task-form__input--info');
+        const date = document.querySelector('.task-form__input--date');
         const importance = [...document.querySelectorAll('.task-form__radio')].find(radio => radio.checked).id;
-        if (date === '' || title === '' || additionalInfo === '') {
+        if (date.value === '' || title.value === '' || additionalInfo.value === '') {
             error.classList.remove('hidden');
             return
         }
         error.classList.add('hidden');
         popup.classList.add('hidden');
         addData(title, additionalInfo, date, importance);
-        renderData(); 
+        renderData();
+        title.value = '';
+        additionalInfo.value = '';
+        date.value = ''; 
     }
 
     plusBtn.addEventListener('click', () => {
