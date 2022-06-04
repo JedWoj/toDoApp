@@ -2,9 +2,10 @@
     const plusBtn = document.querySelector('.create-task'); 
     const popup = document.querySelector('.popup');
     const form = document.querySelector('.task-form');
+    const tasksContainer = document.querySelector('.tasks');
     const normalTasks = [];
     const importantTasks = [];
-    const allTasks = [...normalTasks, ...importantTasks];
+    let allTasks;
 
     const addData = function(title, info, date, importance) {
         const obj = {
@@ -14,10 +15,11 @@
             importance
         }
         importance === 'important' ? importantTasks.push(obj) : normalTasks.push(obj);
+        allTasks = [...normalTasks, ...importantTasks];
     }
 
-    const renderData = function() {
-        
+    const renderData = function(data) {
+        console.log(data)
     }
 
     const checkInputs = function() {
@@ -32,8 +34,8 @@
         }
         error.classList.add('hidden');
         popup.classList.add('hidden');
-        addData(title, additionalInfo, date, importance);
-        renderData();
+        addData(title.value, additionalInfo.value, date.value, importance);
+        renderData(allTasks);
         title.value = '';
         additionalInfo.value = '';
         date.value = ''; 
