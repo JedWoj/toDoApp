@@ -5,7 +5,21 @@
     const tasksContainer = document.querySelector('.tasks');
     const normalTasks = [];
     const importantTasks = [];
+    let stars;
     let allTasks;
+
+    const changeImportance = function(id) {
+        const task = allTasks[id];
+        task.importance === 'normal' ? task.importance = 'important' : task.importance = 'normal';
+        renderData(allTasks);
+    }
+
+    const importanceHandler = function() {
+        stars.forEach(star => star.addEventListener('click', (e) => {
+            const target =  e.target.closest('.task').dataset.id;
+            changeImportance(target);
+        }))
+    }
 
     const addData = function(title, info, date, importance) {
         const obj = {
@@ -19,7 +33,28 @@
     }
 
     const renderData = function(data) {
-        console.log(data)
+        tasksContainer.innerHTML = '';
+        data.forEach((obj, id) => {
+                const div = `<div class="task" data-id='${id}'>
+                    <div class="task__txt-wrap">
+                        <h2 class="task__heading">
+                            ${obj.title}
+                        </h2>
+                        <div class="task__info">
+                            ${obj.info}
+                        </div>
+                        <div class="task-date">
+                            <i class="fa-solid fa-calendar"></i>
+                            ${obj.date}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
+                </div>`
+                tasksContainer.insertAdjacentHTML('afterbegin', div);
+        })
+        stars = [...document.querySelectorAll('.task__star')];
+        importanceHandler();
+        console.log(normalTasks, importantTasks, allTasks)
     }
 
     const checkInputs = function() {
@@ -27,14 +62,14 @@
         const title = document.querySelector('.task-form__input--title');
         const additionalInfo = document.querySelector('.task-form__input--info');
         const date = document.querySelector('.task-form__input--date');
-        const importance = [...document.querySelectorAll('.task-form__radio')].find(radio => radio.checked).id;
+        const checked = [...document.querySelectorAll('.task-form__radio')].find(radio => radio.checked).id;
         if (date.value === '' || title.value === '' || additionalInfo.value === '') {
             error.classList.remove('hidden');
             return
         }
         error.classList.add('hidden');
         popup.classList.add('hidden');
-        addData(title.value, additionalInfo.value, date.value, importance);
+        addData(title.value, additionalInfo.value, date.value, checked);
         renderData(allTasks);
         title.value = '';
         additionalInfo.value = '';

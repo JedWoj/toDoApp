@@ -1,6 +1,6 @@
 .tasks {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    grid-gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
