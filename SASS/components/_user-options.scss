@@ -16,9 +16,21 @@
         transition: 0.4s;
         cursor: pointer;
 
-        &:hover {
+        &:hover,
+        &--active {
             background-color: $color-primary;
             color: $color-tertiary;
         }
+    }
+
+    &__error {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: $color-error;
+        text-transform: uppercase;
+        font-weight: 600;
     }
 }

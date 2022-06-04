@@ -121,9 +121,21 @@ html {
   cursor: pointer;
 }
 
-.user-options__option:hover {
+.user-options__option:hover, .user-options__option--active {
   background-color: #25c2a5;
   color: #ffeffe;
+}
+
+.user-options__error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #da1f1f;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .create-task {

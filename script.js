@@ -3,11 +3,8 @@
     const popup = document.querySelector('.popup');
     const form = document.querySelector('.task-form');
     const tasksContainer = document.querySelector('.tasks');
-    // const showPlannedBtn = document.querySelector('.user-options__option--planned');
-    // const showImportantBtn = document.querySelector('.user-options__option--important');
-    // const showPendingBtn = document.querySelector('.user-options__option--pending');
-    // const showDoneBtn = document.querySelector('.user-options__option--done');
-    const userOptions = document.querySelector('.user-options__list');
+    const userOptionsList = document.querySelector('.user-options__list');
+    const userOptions = document.querySelectorAll('.user-options__option');
 
     const normalTasks = [];
     const importantTasks = [];
@@ -57,11 +54,15 @@
                     </div>
                     <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
                 </div>`
-                tasksContainer.insertAdjacentHTML('afterbegin', div);
+                tasksContainer.insertAdjacentHTML('beforeend', div);
         })
         stars = [...document.querySelectorAll('.task__star')];
         importanceHandler();
-        console.log(normalTasks, importantTasks, allTasks)
+    }
+
+    const addClickedBtnStyles = function(target) {
+        userOptions.forEach(option => option.classList.remove('user-options__option--active'));
+        target.classList.add('user-options__option--active');
     }
 
     const checkInputs = function() {
@@ -97,10 +98,11 @@
         checkInputs();
     });
 
-    userOptions.addEventListener('click', (e) => {
+    userOptionsList.addEventListener('click', (e) => {
         const target = e.target.closest('li');
         if (!target) return
         const {arr} = target.dataset;
+        addClickedBtnStyles(target);
         switch(arr) {
             case 'allTasks':
                 renderData(allTasks);
