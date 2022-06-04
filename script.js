@@ -3,8 +3,15 @@
     const popup = document.querySelector('.popup');
     const form = document.querySelector('.task-form');
     const tasksContainer = document.querySelector('.tasks');
+    // const showPlannedBtn = document.querySelector('.user-options__option--planned');
+    // const showImportantBtn = document.querySelector('.user-options__option--important');
+    // const showPendingBtn = document.querySelector('.user-options__option--pending');
+    // const showDoneBtn = document.querySelector('.user-options__option--done');
+    const userOptions = document.querySelector('.user-options__list');
+
     const normalTasks = [];
     const importantTasks = [];
+    const doneTasks = [];
     let stars;
     let allTasks;
 
@@ -82,13 +89,31 @@
     
     popup.addEventListener('click', function(e) {
         const {value} = e.target.classList;
-        if (value === 'popup') {
-            popup.classList.add('hidden');
-        }
+        value === 'popup' ? popup.classList.add('hidden') : '';
     });
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         checkInputs();
     });
+
+    userOptions.addEventListener('click', (e) => {
+        const target = e.target.closest('li');
+        if (!target) return
+        const {arr} = target.dataset;
+        switch(arr) {
+            case 'allTasks':
+                renderData(allTasks);
+                break;
+            case 'normalTasks': 
+                renderData(normalTasks);
+                break;
+            case 'importantTasks':
+                renderData(importantTasks);
+                break;
+            case 'doneTasks': 
+                renderData(doneTasks);
+                break;
+        }
+    })
 })();
