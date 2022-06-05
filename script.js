@@ -15,15 +15,14 @@
     let id = 0;
 
     const moveToDone = function(id) {
-        const checked = allTasks.findIndex(tsk => tsk === allTasks[id]);
-        console.log(checked);
-        console.log(allTasks[checked].importance);
+        const checked = allTasks.findIndex(tsk => tsk.id === Number(id));
         if (allTasks[checked].importance === 'normal') {
-            const checked = normalTasks.findIndex(tsk => tsk === allTasks[id]);
-            normalTasks.splice(checked,1);
+            console.log(id);
+            const checkedNormal = normalTasks.findIndex(tsk => tsk === allTasks[checked]);
+            normalTasks.splice(checkedNormal,1);
         } else {
-            const checked = importantTasks.findIndex(tsk => tsk === allTasks[id]);
-            importantTasks.splice(checked,1);
+            const checkedImportant = importantTasks.findIndex(tsk => tsk === allTasks[checked]);
+            importantTasks.splice(checkedImportant,1);
         }
         const [moved] = allTasks.splice(checked,1);
         doneTasks.push(moved);
@@ -41,16 +40,18 @@
     }
 
     const changeImportance = function(id) {
-        const task = allTasks[id];
-        task.importance === 'normal' ? task.importance = 'important' : task.importance = 'normal';
-        if (task.importance === 'normal') {
-            const idx = importantTasks.findIndex(tsk => tsk === allTasks[id]);
+        const clicked = allTasks.findIndex(tsk => tsk.id === Number(id));
+        const changed = allTasks[clicked];
+        console.log(clicked,changed);
+        changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
+        if (changed.importance === 'normal') {
+            const idx = importantTasks.findIndex(tsk => tsk === allTasks[clicked]);
             importantTasks.splice(idx,1);
-            normalTasks.push(task);
+            normalTasks.push(changed);
         } else {
-            const idx = normalTasks.findIndex(tsk => tsk === allTasks[id]);
+            const idx = normalTasks.findIndex(tsk => tsk === allTasks[clicked]);
             normalTasks.splice(idx,1);
-            importantTasks.push(task);
+            importantTasks.push(changed);
         }
         renderData(active);
     }
