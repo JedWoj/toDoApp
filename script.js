@@ -28,6 +28,18 @@
         renderData(active = allTasks);
     }
 
+    const editTaskData = function(target) {
+        popup.classList.remove('hidden');
+    }
+
+    const editTaskHandler = function() {
+        const editIcons = document.querySelectorAll('.task__icon--edit');
+        editIcons.forEach(icon => icon.addEventListener('click', (e) => {
+            const target = e.target.closest('.task').dataset.id;
+            editTaskData(target);
+        }))
+    }
+
     const doneTasksHandler = function() {
         const checkIcons = document.querySelectorAll('.task__icon--check');
         checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
@@ -105,6 +117,7 @@
         stars = [...document.querySelectorAll('.task__star')];
         importanceHandler();
         doneTasksHandler();
+        editTaskHandler();
     }
 
     const addClickedBtnStyles = function(target) {
