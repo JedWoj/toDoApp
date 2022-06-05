@@ -14,6 +14,32 @@
     let active;
     let id = 0;
 
+    const moveToDone = function(id) {
+        const checked = allTasks.findIndex(tsk => tsk === allTasks[id]);
+        console.log(checked);
+        console.log(allTasks[checked].importance);
+        if (allTasks[checked].importance === 'normal') {
+            const checked = normalTasks.findIndex(tsk => tsk === allTasks[id]);
+            normalTasks.splice(checked,1);
+        } else {
+            const checked = importantTasks.findIndex(tsk => tsk === allTasks[id]);
+            importantTasks.splice(checked,1);
+        }
+        const [moved] = allTasks.splice(checked,1);
+        doneTasks.push(moved);
+        renderData(active = allTasks);
+    }
+
+    const doneTasksHandler = function() {
+        const checkIcons = document.querySelectorAll('.task__icon--check');
+        checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
+            const target = e.target.closest('.task').dataset.id;
+            if (active === doneTasks) return
+            console.log(target);
+            moveToDone(target);
+        }))
+    }
+
     const changeImportance = function(id) {
         const task = allTasks[id];
         task.importance === 'normal' ? task.importance = 'important' : task.importance = 'normal';
@@ -69,10 +95,10 @@
                     <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
                     <div class="task__btns">
                         <div class="task__btn-edit">
-                            <i class="fa-solid fa-pen-to-square task__icon"></i>
+                            <i class="fa-solid fa-pen-to-square task__icon task__icon--edit"></i>
                         </div>
                         <div class="task__btn-close">
-                            <i class="fa-solid fa-xmark task__icon"></i>
+                            <i class="fa-solid fa-check task__icon task__icon--check"></i>
                         </div>
                     </div>
                 </div>`
@@ -80,6 +106,7 @@
         })
         stars = [...document.querySelectorAll('.task__star')];
         importanceHandler();
+        doneTasksHandler();
     }
 
     const addClickedBtnStyles = function(target) {
@@ -110,7 +137,7 @@
         popup.classList.remove('hidden');
     });
     
-    popup.addEventListener('click', function(e) {
+    popup.addEventListener('click', (e) => {
         const {value} = e.target.classList;
         value === 'popup' ? popup.classList.add('hidden') : '';
     });
