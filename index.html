@@ -73,7 +73,7 @@
             </div>
         </section>
     </main>
-    <section class="popup hidden">
+    <section class="popup popup--add hidden">
         <form class="task-form">
             <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
             <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info">
@@ -92,6 +92,19 @@
                 Add Task
             </button>
             <p class="task-form__error hidden">
+                Please fill in all inputs!
+            </p>
+        </form>
+    </section>
+    <section class="popup popup--edit hidden">
+        <form class="edit-task">
+            <input class="edit-task__input edit-task__input--title" type="text" placeholder="Change task title">
+            <input type="text" class="edit-task__input edit-task__input--info" placeholder="Change info">
+            <input type="date" class="edit-task__input edit-task__input--date">
+            <button class="edit-task__btn">
+                Change task
+            </button>
+            <p class="edit-task__error hidden">
                 Please fill in all inputs!
             </p>
         </form>

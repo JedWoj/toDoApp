@@ -1,0 +1,38 @@
+.edit-task {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: $color-secondary;
+    padding: 4rem;
+    border-radius: 5px;
+    text-align: center;
+
+    &__input {
+        border: none;
+        outline: none;
+        padding: 1rem 2rem;
+        width: 30rem;
+    }
+
+    &__btn {
+        width: 60%;
+        align-self: center;
+        border: none;
+        background-color: $color-tertiary;
+        color: $color-secondary;
+        padding: 0.7rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .4s;
+        font-size: 1.6rem;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+
+    &__error {
+        color: $color-error;
+        font-size: 1.6rem;
+    }
+}

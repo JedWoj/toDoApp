@@ -276,4 +276,51 @@ html {
   color: #da1f1f;
   font-size: 1.6rem;
 }
+
+.edit-task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+  background-color: #FFC501;
+  padding: 4rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.edit-task__input {
+  border: none;
+  outline: none;
+  padding: 1rem 2rem;
+  width: 30rem;
+}
+
+.edit-task__btn {
+  width: 60%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  border: none;
+  background-color: #ffeffe;
+  color: #FFC501;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: .4s;
+  transition: .4s;
+  font-size: 1.6rem;
+}
+
+.edit-task__btn:hover {
+  background-color: #25c2a5;
+}
+
+.edit-task__error {
+  color: #da1f1f;
+  font-size: 1.6rem;
+}
 /*# sourceMappingURL=styles.css.map */
