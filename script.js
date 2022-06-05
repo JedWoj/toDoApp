@@ -17,7 +17,6 @@
     const moveToDone = function(id) {
         const checked = allTasks.findIndex(tsk => tsk.id === Number(id));
         if (allTasks[checked].importance === 'normal') {
-            console.log(id);
             const checkedNormal = normalTasks.findIndex(tsk => tsk === allTasks[checked]);
             normalTasks.splice(checkedNormal,1);
         } else {
@@ -34,7 +33,6 @@
         checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
             const target = e.target.closest('.task').dataset.id;
             if (active === doneTasks) return
-            console.log(target);
             moveToDone(target);
         }))
     }
@@ -42,7 +40,6 @@
     const changeImportance = function(id) {
         const clicked = allTasks.findIndex(tsk => tsk.id === Number(id));
         const changed = allTasks[clicked];
-        console.log(clicked,changed);
         changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
         if (changed.importance === 'normal') {
             const idx = importantTasks.findIndex(tsk => tsk === allTasks[clicked]);
