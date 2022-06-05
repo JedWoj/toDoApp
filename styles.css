@@ -145,7 +145,7 @@ html {
   cursor: pointer;
 }
 
-.user-options__option:hover, .user-options__option--active {
+.user-options__option:hover, .user-options__option--active, .user-options__option--first {
   background-color: #25c2a5;
   color: #ffeffe;
 }

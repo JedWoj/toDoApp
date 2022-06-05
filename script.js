@@ -15,6 +15,7 @@
     const addTitle = document.querySelector('.task-form__input--title');
     const addAdditionalInfo = document.querySelector('.task-form__input--info');
     const addDate = document.querySelector('.task-form__input--date');
+    const onloadActive = document.querySelector('.user-options__option--first');
 
     const normalTasks = [];
     const importantTasks = [];
@@ -118,10 +119,10 @@
                     importanceHandler();
                     doneTasksHandler();
                     editTaskHandler();
-                }
+        }
                 
-                const addClickedBtnStyles = function(target) {
-                    userOptions.forEach(option => option.classList.remove('user-options__option--active'));
+    const addClickedBtnStyles = function(target) {
+        userOptions.forEach(option => option.classList.remove('user-options__option--active'));
         target.classList.add('user-options__option--active');
     }
     
@@ -210,8 +211,10 @@
     });
     
     userOptionsList.addEventListener('click', (e) => {
+        onloadActive.classList.remove('user-options__option--first');
         const target = e.target.closest('li');
         if (!target) return
+        console.log(target);
         const {arr} = target.dataset;
         addClickedBtnStyles(target);
         switch(arr) {
@@ -233,4 +236,10 @@
                 break;
                 }
             })
-        })();
+
+    const init = function() {
+        addClickedBtnStyles(onloadActive)
+    }
+
+    init();
+})();

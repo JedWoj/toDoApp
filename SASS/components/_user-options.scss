@@ -17,7 +17,8 @@
         cursor: pointer;
 
         &:hover,
-        &--active {
+        &--active,
+        &--first {
             background-color: $color-primary;
             color: $color-tertiary;
         }
