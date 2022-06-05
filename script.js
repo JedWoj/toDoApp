@@ -1,5 +1,5 @@
-(()=> {    
-    const plusBtn = document.querySelector('.create-task'); 
+(() => {
+    const plusBtn = document.querySelector('.create-task');
     const popupAdd = document.querySelector('.popup--add');
     const popupEdit = document.querySelector('.popup--edit');
     const form = document.querySelector('.task-form');
@@ -23,25 +23,26 @@
     let currentlyEdited;
     let stars;
     let allTasks = [];
-    let active;
-    let id = 0;
+    let active = allTasks;
+    let id;
 
-    const moveToDone = function(id) {
+    const moveToDone = function (id) {
         const checked = allTasks.findIndex(tsk => tsk.id === Number(id));
         if (allTasks[checked].importance === 'normal') {
             const checkedNormal = normalTasks.findIndex(tsk => tsk === allTasks[checked]);
-            normalTasks.splice(checkedNormal,1);
+            normalTasks.splice(checkedNormal, 1);
         } else {
             const checkedImportant = importantTasks.findIndex(tsk => tsk === allTasks[checked]);
-            importantTasks.splice(checkedImportant,1);
+            importantTasks.splice(checkedImportant, 1);
         }
-        const [moved] = allTasks.splice(checked,1);
+        const [moved] = allTasks.splice(checked, 1);
         doneTasks.push(moved);
-        renderData(active = allTasks);
+        removeFromLocalStorage(moved);
+        renderData(active);
     }
 
-    
-    const doneTasksHandler = function() {
+
+    const doneTasksHandler = function () {
         const checkIcons = document.querySelectorAll('.task__icon--check');
         checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
             const target = e.target.closest('.task').dataset.id;
@@ -49,31 +50,32 @@
             moveToDone(target);
         }))
     }
-    
-    const changeImportance = function(id) {
+
+    const changeImportance = function (id) {
         const clicked = allTasks.findIndex(tsk => tsk.id === Number(id));
         const changed = allTasks[clicked];
         changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
         if (changed.importance === 'normal') {
             const idx = importantTasks.findIndex(tsk => tsk === allTasks[clicked]);
-            importantTasks.splice(idx,1);
+            importantTasks.splice(idx, 1);
             normalTasks.push(changed);
         } else {
             const idx = normalTasks.findIndex(tsk => tsk === allTasks[clicked]);
-            normalTasks.splice(idx,1);
+            normalTasks.splice(idx, 1);
             importantTasks.push(changed);
         }
         renderData(active);
     }
-    
-    const importanceHandler = function() {
+
+    const importanceHandler = function () {
+        stars = [...document.querySelectorAll('.task__star')];
         stars.forEach(star => star.addEventListener('click', (e) => {
-            const target =  e.target.closest('.task').dataset.id;
+            const target = e.target.closest('.task').dataset.id;
             changeImportance(target);
         }))
     }
-    
-    const addData = function(title, info, date, importance) {
+
+    const addData = function (title, info, date, importance) {
         const obj = {
             title,
             info,
@@ -85,48 +87,51 @@
         importance === 'important' ? importantTasks.push(obj) : normalTasks.push(obj);
         allTasks.push(obj);
         active === undefined ? active = allTasks : active = active;
+        addClickedBtnStyles(onloadActive);
     }
-    
-    const renderData = function(data) {
+
+    const renderData = function (data) {
         tasksContainer.innerHTML = '';
         data.forEach((obj) => {
-            const div = `<div class="task" data-id='${obj.id}'>
-            <div class="task__txt-wrap">
-                        <h2 class="task__heading">
+            const div = `
+            <div class="task" data-id='${obj.id}'>
+                <div class="task__txt-wrap">
+                    <h2 class="task__heading">
                         ${obj.title}
-                        </h2>
-                        <div class="task__info">
+                    </h2>
+                    <div class="task__info">
                         ${obj.info}
-                        </div>
-                        <div class="task-date">
+                    </div>
+                    <div class="task-date">
                         <i class="fa-solid fa-calendar"></i>
                         ${obj.date}
-                        </div>
-                        </div>
-                        <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
-                        <div class="task__btns">
-                        <div class="task__btn-edit">
+                    </div>
+                </div>
+                <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
+                <div class="task__btns">
+                    <div class="task__btn-edit">
                         <i class="fa-solid fa-pen-to-square task__icon task__icon--edit"></i>
-                        </div>
-                        <div class="task__btn-close">
+                    </div>
+                    <div class="task__btn-close">
                         <i class="fa-solid fa-check task__icon task__icon--check"></i>
-                        </div>
-                        </div>
-                        </div>`
-                        tasksContainer.insertAdjacentHTML('beforeend', div);
-                    })
-                    stars = [...document.querySelectorAll('.task__star')];
-                    importanceHandler();
-                    doneTasksHandler();
-                    editTaskHandler();
-        }
-                
-    const addClickedBtnStyles = function(target) {
+                    </div>
+                </div>
+            </div>`
+            tasksContainer.insertAdjacentHTML('beforeend', div);
+        })
+        importanceHandler();
+        doneTasksHandler();
+        editTaskHandler();
+        if (!localStorage.getItem('id')) setLocalStorage();
+        updateLocalStorage();
+    }
+
+    const addClickedBtnStyles = function (target) {
         userOptions.forEach(option => option.classList.remove('user-options__option--active'));
         target.classList.add('user-options__option--active');
     }
-    
-    const checkAddInputs = function() {
+
+    const checkAddInputs = function () {
         const checked = [...document.querySelectorAll('.task-form__radio')].find(radio => radio.checked).id;
         if (addDate.value === '' || addTitle.value === '' || addAdditionalInfo.value === '') {
             addError.classList.remove('hidden');
@@ -138,10 +143,10 @@
         renderData(allTasks);
         addTitle.value = '';
         addAdditionalInfo.value = '';
-        addDate.value = ''; 
+        addDate.value = '';
     }
 
-    const editTask = function() {
+    const editTask = function () {
         const newTitle = editTitle.value;
         const newInfo = editInfo.value;
         const newDate = editDate.value;
@@ -151,7 +156,7 @@
         renderData(active);
     }
 
-    const checkEditInputs = function() {
+    const checkEditInputs = function () {
         if (editDate.value === '' || editInfo.value === '', editTitle.value === '') return editTaskError.classList.remove('hidden')
         editTaskError.classList.add('hidden');
         popupEdit.classList.add('hidden');
@@ -159,26 +164,26 @@
     }
 
 
-    const getEditedTask = function(id) {
+    const getEditedTask = function (id) {
         const clicked = allTasks.findIndex(tsk => tsk.id === Number(id));
         const data = allTasks[clicked];
         currentlyEdited = data;
         return data
     }
 
-    const renderPreviousValues = function(target) {
+    const renderPreviousValues = function (target) {
         const data = getEditedTask(target);
         editTitle.value = data.title;
         editInfo.value = data.info;
         editDate.value = data.date;
     }
 
-    const showTaskData = function(target) {
+    const showTaskData = function (target) {
         renderPreviousValues(target);
         popupEdit.classList.remove('hidden');
     }
 
-    const editTaskHandler = function() {
+    const editTaskHandler = function () {
         const editIcons = document.querySelectorAll('.task__icon--edit');
         editIcons.forEach(icon => icon.addEventListener('click', (e) => {
             const target = e.target.closest('.task').dataset.id;
@@ -190,55 +195,91 @@
         e.preventDefault();
         checkEditInputs();
     })
-    
+
     plusBtn.addEventListener('click', () => {
         popupAdd.classList.remove('hidden');
     });
-    
+
     popupAdd.addEventListener('click', (e) => {
-        const {value} = e.target.classList;
+        const {
+            value
+        } = e.target.classList;
         value === 'popup popup--add' ? popupAdd.classList.add('hidden') : '';
     });
 
     popupEdit.addEventListener('click', (e) => {
-        const {value} = e.target.classList;
+        const {
+            value
+        } = e.target.classList;
         value === 'popup popup--edit' ? popupEdit.classList.add('hidden') : '';
     });
-    
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         checkAddInputs();
     });
-    
+
     userOptionsList.addEventListener('click', (e) => {
         onloadActive.classList.remove('user-options__option--first');
         const target = e.target.closest('li');
         if (!target) return
-        console.log(target);
-        const {arr} = target.dataset;
+        const {
+            arr
+        } = target.dataset;
         addClickedBtnStyles(target);
-        switch(arr) {
+        switch (arr) {
             case 'allTasks':
                 renderData(allTasks);
                 active = allTasks;
                 break;
-                case 'normalTasks': 
+            case 'normalTasks':
                 renderData(normalTasks);
                 active = normalTasks;
                 break;
-             case 'importantTasks':
+            case 'importantTasks':
                 renderData(importantTasks);
                 active = importantTasks;
                 break;
-                case 'doneTasks': 
+            case 'doneTasks':
                 renderData(doneTasks);
                 active = doneTasks;
                 break;
-                }
-            })
+        }
+    })
 
-    const init = function() {
-        addClickedBtnStyles(onloadActive)
+    const renderLocalStorage = function () {
+        if (localStorage.length === 0) return
+        for (let i = 0; i < localStorage.length - 1; i++) {
+            allTasks.push(JSON.parse(localStorage.getItem(`${i}`)));
+            JSON.parse(localStorage.getItem(`${i}`)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(`${i}`))) : importantTasks.push(JSON.parse(localStorage.getItem(`${i}`)));
+        }
+        renderData(active);
+    }
+
+    const removeFromLocalStorage = function (removed) {
+        const {
+            id
+        } = removed;
+        localStorage.removeItem(`${id}`);
+    }
+
+    const getLocalStorageId = function () {
+        localStorage.getItem('id') === null ? id = 0 : id = +localStorage.getItem('id');
+    }
+
+    const updateLocalStorage = function () {
+        allTasks.forEach(tsk => localStorage.setItem(`${tsk.id}`, JSON.stringify(tsk)));
+        localStorage.setItem(`id`, JSON.stringify(id));
+    }
+
+    const setLocalStorage = function () {
+        allTasks.forEach(task => localStorage.setItem(`${task.id}`, JSON.stringify(task)));
+    }
+
+    const init = function () {
+        addClickedBtnStyles(onloadActive);
+        getLocalStorageId();
+        renderLocalStorage();
     }
 
     init();
