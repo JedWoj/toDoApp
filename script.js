@@ -1,4 +1,4 @@
-// (()=> {    
+(()=> {    
     const plusBtn = document.querySelector('.create-task'); 
     const popup = document.querySelector('.popup');
     const form = document.querySelector('.task-form');
@@ -172,4 +172,4 @@
                 break;
         }
     })
-// })();
+})();
