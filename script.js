@@ -20,6 +20,7 @@
     const normalTasks = [];
     const importantTasks = [];
     const doneTasks = [];
+    let movedIds = [];
     let currentlyEdited;
     let stars;
     let allTasks = [];
@@ -36,8 +37,10 @@
             importantTasks.splice(checkedImportant, 1);
         }
         const [moved] = allTasks.splice(checked, 1);
+        movedIds.push(moved.id);
         doneTasks.push(moved);
         removeFromLocalStorage(moved);
+        saveMovedIds();
         renderData(active);
     }
 
@@ -108,14 +111,14 @@
                     </div>
                 </div>
                 <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
-                <div class="task__btns">
+                ${data === doneTasks ? '' : `<div class="task__btns">
                     <div class="task__btn-edit">
                         <i class="fa-solid fa-pen-to-square task__icon task__icon--edit"></i>
                     </div>
                     <div class="task__btn-close">
                         <i class="fa-solid fa-check task__icon task__icon--check"></i>
                     </div>
-                </div>
+                </div>`}
             </div>`
             tasksContainer.insertAdjacentHTML('beforeend', div);
         })
@@ -249,9 +252,10 @@
 
     const renderLocalStorage = function () {
         if (localStorage.length === 0) return
-        for (let i = 0; i < localStorage.length - 1; i++) {
-            allTasks.push(JSON.parse(localStorage.getItem(`${i}`)));
-            JSON.parse(localStorage.getItem(`${i}`)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(`${i}`))) : importantTasks.push(JSON.parse(localStorage.getItem(`${i}`)));
+        for (let i = 0; i < localStorage.length - 1 + movedIds.length; i++) {
+            if (localStorage.getItem(i) === null) continue
+            allTasks.push(JSON.parse(localStorage.getItem(i)));
+            JSON.parse(localStorage.getItem(i)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(`${i}`))) : importantTasks.push(JSON.parse(localStorage.getItem(i)));
         }
         renderData(active);
     }
@@ -261,6 +265,14 @@
             id
         } = removed;
         localStorage.removeItem(`${id}`);
+    }
+
+    const saveMovedIds = function () {
+        localStorage.setItem('movedIds', JSON.stringify(movedIds));
+    }
+
+    const getSavedMovedIds = function () {
+        localStorage.getItem('movedIds') === null ? movedIds = [] : movedIds = JSON.parse(localStorage.getItem('movedIds'));
     }
 
     const getLocalStorageId = function () {
@@ -279,6 +291,7 @@
     const init = function () {
         addClickedBtnStyles(onloadActive);
         getLocalStorageId();
+        getSavedMovedIds();
         renderLocalStorage();
     }
 
