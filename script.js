@@ -16,10 +16,12 @@
     const addAdditionalInfo = document.querySelector('.task-form__input--info');
     const addDate = document.querySelector('.task-form__input--date');
     const onloadActive = document.querySelector('.user-options__option--first');
+    const sortBtn = document.querySelector('.sort-tasks');
 
     const normalTasks = [];
     const importantTasks = [];
     const doneTasks = [];
+    let newOrder = 'ascending';
     let movedIds = [];
     let currentlyEdited;
     let stars;
@@ -194,6 +196,18 @@
         }))
     }
 
+    const sortTasksDescending = function () {
+        const order = active.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderData(order);
+        newOrder = 'ascending';
+    }
+
+    const sortTasksAscending = function () {
+        const order = active.sort((a, b) => new Date(a.date) - new Date(b.date));
+        renderData(order);
+        newOrder = 'descending';
+    }
+
     editTaskForm.addEventListener('submit', (e) => {
         e.preventDefault();
         checkEditInputs();
@@ -215,6 +229,10 @@
             value
         } = e.target.classList;
         value === 'popup popup--edit' ? popupEdit.classList.add('hidden') : '';
+    });
+
+    sortBtn.addEventListener('click', () => {
+        newOrder === 'ascending' ? sortTasksAscending() : sortTasksDescending();
     });
 
     form.addEventListener('submit', (e) => {
@@ -293,6 +311,7 @@
         getLocalStorageId();
         getSavedMovedIds();
         renderLocalStorage();
+        sortTasksAscending();
     }
 
     init();

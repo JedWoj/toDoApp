@@ -1,0 +1,14 @@
+.sort-tasks {
+    position: absolute;
+    top: 2px;
+    right: 5rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    &__icon {
+        font-size: 2rem;
+        color: $color-tertiary;
+    }
+}

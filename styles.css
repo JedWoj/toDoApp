@@ -323,4 +323,19 @@ html {
   color: #da1f1f;
   font-size: 1.6rem;
 }
+
+.sort-tasks {
+  position: absolute;
+  top: 2px;
+  right: 5rem;
+}
+
+.sort-tasks:hover {
+  cursor: pointer;
+}
+
+.sort-tasks__icon {
+  font-size: 2rem;
+  color: #ffeffe;
+}
 /*# sourceMappingURL=styles.css.map */
