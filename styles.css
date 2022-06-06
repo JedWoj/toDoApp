@@ -28,6 +28,9 @@ html {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   gap: 2rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .tasks-container {
@@ -76,8 +79,12 @@ html {
           align-items: center;
   padding: 3rem 2rem;
   background-color: #FFC501;
-  max-width: 25rem;
+  width: 25rem;
   position: relative;
+}
+
+.task__txt-wrap {
+  max-width: 90%;
 }
 
 .task__heading {
@@ -89,11 +96,19 @@ html {
   color: #ffeffe;
   font-size: 1.4rem;
   font-weight: 600;
+  max-height: 30rem;
+  overflow: hidden;
+}
+
+.task__date {
+  color: #25c2a5;
+  font-size: 1.4rem;
 }
 
 .task__star {
   cursor: pointer;
   font-size: 1.6rem;
+  padding-left: 2rem;
 }
 
 .task__star--important {
@@ -112,7 +127,7 @@ html {
 
 .task__btn-edit, .task__btn-close {
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .task__btn-edit {
@@ -220,6 +235,10 @@ html {
   width: 30rem;
 }
 
+.task-form__input--info {
+  resize: none;
+}
+
 .task-form__options {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -297,6 +316,10 @@ html {
   outline: none;
   padding: 1rem 2rem;
   width: 30rem;
+}
+
+.edit-task__input--info {
+  resize: none;
 }
 
 .edit-task__btn {

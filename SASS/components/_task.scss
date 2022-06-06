@@ -4,10 +4,12 @@
     align-items: center;
     padding: 3rem 2rem;
     background-color: $color-secondary;
-    max-width: 25rem;
+    width: 25rem;
     position: relative;
 
-    &__txt-wrap {}
+    &__txt-wrap {
+        max-width: 90%;
+    }
 
     &__heading {
         color: $color-primary;
@@ -18,13 +20,19 @@
         color: $color-tertiary;
         font-size: 1.4rem;
         font-weight: 600;
+        max-height: 30rem;
+        overflow: hidden;
     }
 
-    &__date {}
+    &__date {
+        color: $color-primary;
+        font-size: 1.4rem;
+    }
 
     &__star {
         cursor: pointer;
         font-size: 1.6rem;
+        padding-left: 2rem;
 
         &--important {
             color: $color-tertiary;
@@ -42,9 +50,8 @@
     &__btn-edit,
     &__btn-close {
         cursor: pointer;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
-
 
     &__btn-edit {
         color: $color-primary;
@@ -53,6 +60,4 @@
     &__btn-close {
         color: $color-tertiary;
     }
-
-    &__icon {}
 }

@@ -12,6 +12,10 @@
         outline: none;
         padding: 1rem 2rem;
         width: 30rem;
+
+            &--info {
+                resize: none;
+            }
     }
 
     &__btn {

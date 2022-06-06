@@ -46,9 +46,11 @@
                             Build this app!
                         </h2>
                         <div class="task__info">
-                            Its very important due to inflation!
+                            <p task__info-txt>
+                                Its very important due to inflation!
+                            </p>
                         </div>
-                        <div class="task-date">
+                        <div class="task__date">
                             <i class="fa-solid fa-calendar"></i>
                             02-06-2022
                         </div>
@@ -80,7 +82,8 @@
     <section class="popup popup--add hidden">
         <form class="task-form">
             <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
-            <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info">
+            <!-- <input type="text" class="task-form__input task-form__input--info" placeholder="Add more info"> -->
+            <textarea class="task-form__input task-form__input--info"></textarea>
             <input type="date" class="task-form__input task-form__input--date">
             <div class="task-form__options">
                 <div class="task-form__option">
@@ -103,7 +106,8 @@
     <section class="popup popup--edit hidden">
         <form class="edit-task">
             <input class="edit-task__input edit-task__input--title" type="text" placeholder="Change task title">
-            <input type="text" class="edit-task__input edit-task__input--info" placeholder="Change info">
+            <!-- <input type="text" class="edit-task__input edit-task__input--info" placeholder="Change info"> -->
+            <textarea class="edit-task__input edit-task__input--info"></textarea>
             <input type="date" class="edit-task__input edit-task__input--date">
             <button class="edit-task__btn">
                 Change task
