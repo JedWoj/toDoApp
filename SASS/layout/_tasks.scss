@@ -1,7 +1,10 @@
 .tasks {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    align-items: flex-start;
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 2rem;
+    // align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 25rem));
+    grid-gap: 2rem;
 }
