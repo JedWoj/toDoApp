@@ -61,11 +61,11 @@ const changeImportance = function (id) {
     const changed = allTasks[clicked];
     changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
     if (changed.importance === 'normal') {
-        const idx = importantTasks.findIndex(tsk => tsk === allTasks[clicked]);
+        const idx = importantTasks.findIndex(tsk => tsk.id === allTasks[clicked].id);
         importantTasks.splice(idx, 1);
         normalTasks.push(changed);
     } else {
-        const idx = normalTasks.findIndex(tsk => tsk === allTasks[clicked]);
+        const idx = normalTasks.findIndex(tsk => tsk.id === allTasks[clicked].id);
         normalTasks.splice(idx, 1);
         importantTasks.push(changed);
     }
@@ -278,7 +278,7 @@ const renderLocalStorage = function () {
     for (let i = 0; i < localStorage.length - 1 + movedIds.length; i++) {
         if (localStorage.getItem(i) === null) continue
         allTasks.push(JSON.parse(localStorage.getItem(i)));
-        JSON.parse(localStorage.getItem(i)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(`${i}`))) : importantTasks.push(JSON.parse(localStorage.getItem(i)));
+        JSON.parse(localStorage.getItem(i)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(i))) : importantTasks.push(JSON.parse(localStorage.getItem(i)));
     }
     renderData(active);
 }
@@ -287,7 +287,7 @@ const removeFromLocalStorage = function (removed) {
     const {
         id
     } = removed;
-    localStorage.removeItem(`${id}`);
+    localStorage.removeItem(id);
 }
 
 const saveMovedIds = function () {
