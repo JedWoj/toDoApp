@@ -21,6 +21,15 @@ html {
   display: flex;
 }
 
+@media only screen and (max-width: 60rem) {
+  .wrap {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
 .tasks {
   width: 100%;
   display: -ms-grid;
@@ -147,6 +156,14 @@ html {
   text-align: center;
 }
 
+@media only screen and (max-width: 60rem) {
+  .user-options__list {
+    -ms-grid-columns: (1fr)[4];
+        grid-template-columns: repeat(4, 1fr);
+    height: auto;
+  }
+}
+
 .user-options__option {
   color: #25c2a5;
   padding: 2rem;
@@ -155,6 +172,13 @@ html {
   -webkit-transition: 0.4s;
   transition: 0.4s;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 60rem) {
+  .user-options__option {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
 }
 
 .user-options__option:hover, .user-options__option--active, .user-options__option--first {

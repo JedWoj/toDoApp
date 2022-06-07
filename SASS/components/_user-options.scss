@@ -1,4 +1,5 @@
 .user-options {
+
     &__list {
         height: calc(100vh - 6.4rem);
         background-color: $color-tertiary;
@@ -6,6 +7,11 @@
         display: grid;
         align-items: center;
         text-align: center;
+
+        @media only screen and (max-width: 60rem) {
+            grid-template-columns: repeat(4, 1fr);
+            height: auto;
+        }
     }
 
     &__option {
@@ -15,6 +21,11 @@
         text-transform: uppercase;
         transition: 0.4s;
         cursor: pointer;
+
+        @media only screen and (max-width: 60rem) {
+            padding: 1rem;
+            font-size: 1.4rem;
+        }
 
         &:hover,
         &--active,
