@@ -1,4 +1,4 @@
-// (() => {
+(() => {
 const plusBtn = document.querySelector('.create-task');
 const popupAdd = document.querySelector('.popup--add');
 const popupEdit = document.querySelector('.popup--edit');
@@ -20,12 +20,12 @@ const sortBtn = document.querySelector('.sort-tasks');
 
 const normalTasks = [];
 const importantTasks = [];
+let movedIds = [];
+let allTasks = [];
 let doneTasks;
 let newOrder = 'ascending';
-let movedIds = [];
 let currentlyEdited;
 let stars;
-let allTasks = [];
 let active = allTasks;
 let id;
 
@@ -42,7 +42,7 @@ const moveToDone = function (id) {
     movedIds.push(moved.id);
     doneTasks.push(moved);
     removeFromLocalStorage(moved);
-    saveMovedIds();
+    setSavedMovedIds();
     saveMovedTasks();
     renderData(active);
 }
@@ -134,8 +134,8 @@ const renderData = function (data) {
     })
     menageHandlers();
     getSavedMovedTasks();
-    if (!localStorage.getItem('id')) setLocalStorage();
-    updateLocalStorage();
+    if (!localStorage.getItem('id')) setMainLocalStorage();
+    updateMainLocalStorage();
 }
 
 const menageHandlers = function() {
@@ -247,16 +247,12 @@ plusBtn.addEventListener('click', () => {
 });
 
 popupAdd.addEventListener('click', (e) => {
-    const {
-        value
-    } = e.target.classList;
+    const {value} = e.target.classList;
     value === 'popup popup--add' ? popupAdd.classList.add('hidden') : '';
 });
 
 popupEdit.addEventListener('click', (e) => {
-    const {
-        value
-    } = e.target.classList;
+    const {value} = e.target.classList;
     value === 'popup popup--edit' ? popupEdit.classList.add('hidden') : '';
 });
 
@@ -271,9 +267,7 @@ userOptionsList.addEventListener('click', (e) => {
     onloadActive.classList.remove('user-options__option--first');
     const target = e.target.closest('li');
     if (!target) return
-    const {
-        arr
-    } = target.dataset;
+    const {arr} = target.dataset;
     addClickedBtnStyles(target);
     switch (arr) {
         case 'allTasks':
@@ -296,7 +290,7 @@ userOptionsList.addEventListener('click', (e) => {
     switchSorting(active);
 })
 
-const renderLocalStorage = function () {
+const renderMainLocalStorage = function () {
     if (localStorage.length === 0) return
     for (let i = 0; i < localStorage.length + movedIds.length; i++) {
         if (localStorage.getItem(i) === null) continue
@@ -307,9 +301,7 @@ const renderLocalStorage = function () {
 }
 
 const removeFromLocalStorage = function (removed) {
-    const {
-        id
-    } = removed;
+    const {id} = removed;
     localStorage.removeItem(id);
 }
 
@@ -323,12 +315,11 @@ const getSavedMovedTasks = function() {
     doneTasks = [];
     for (let i = 0; i < localStorage.length + movedIds.length; i++) {
         if (JSON.parse(localStorage.getItem(`moved${i}`)) === null) continue
-        console.log(i);
         doneTasks.push(JSON.parse(localStorage.getItem(`moved${i}`)));
     }
 }
 
-const saveMovedIds = function () {
+const setSavedMovedIds = function () {
     localStorage.setItem('movedIds', JSON.stringify(movedIds));
 }
 
@@ -340,12 +331,12 @@ const getLocalStorageId = function () {
     localStorage.getItem('id') === null ? id = 0 : id = +localStorage.getItem('id');
 }
 
-const updateLocalStorage = function () {
+const updateMainLocalStorage = function () {
     allTasks.forEach(tsk => localStorage.setItem(`${tsk.id}`, JSON.stringify(tsk)));
     localStorage.setItem(`id`, JSON.stringify(id));
 }
 
-const setLocalStorage = function () {
+const setMainLocalStorage = function () {
     allTasks.forEach(task => localStorage.setItem(`${task.id}`, JSON.stringify(task)));
 }
 
@@ -353,9 +344,9 @@ const init = function () {
     addClickedBtnStyles(onloadActive);
     getLocalStorageId();
     getSavedMovedIds();
-    renderLocalStorage();
+    renderMainLocalStorage();
     sortTasksAscending();
 }
 
 init();
-// })();
+})();
