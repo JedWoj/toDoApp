@@ -49,7 +49,7 @@ const moveToDone = function (id) {
 
 const doneTasksHandler = function () {
     const checkIcons = document.querySelectorAll('.task__icon--check');
-    checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
+    checkIcons.forEach(icon => icon.addEventListener('click', e => {
         const target = e.target.closest('.task').dataset.id;
         if (active === doneTasks) return
         moveToDone(target);
@@ -74,7 +74,7 @@ const changeImportance = function (id) {
 
 const importanceHandler = function () {
     stars = [...document.querySelectorAll('.task__star')];
-    stars.forEach(star => star.addEventListener('click', (e) => {
+    stars.forEach(star => star.addEventListener('click', e => {
         const target = e.target.closest('.task').dataset.id;
         changeImportance(target);
     }))
@@ -204,7 +204,7 @@ const showTaskData = function (target) {
 
 const editTaskHandler = function () {
     const editIcons = document.querySelectorAll('.task__icon--edit');
-    editIcons.forEach(icon => icon.addEventListener('click', (e) => {
+    editIcons.forEach(icon => icon.addEventListener('click', e => {
         const target = e.target.closest('.task').dataset.id;
         showTaskData(target);
     }))
@@ -228,42 +228,42 @@ const switchSorting = function () {
 
 const deleteTaskHandler = function() {
     const deleteBtns = document.querySelectorAll('.task__btn-del');
-    deleteBtns.forEach(btn => btn.addEventListener('click', (e) => {
+    deleteBtns.forEach(btn => btn.addEventListener('click', e => {
     const target = e.target.closest('.task').dataset.id;
     const clicked = doneTasks.findIndex(tsk => tsk.id === +target);
     localStorage.removeItem(`moved${doneTasks[clicked].id}`);
     doneTasks.splice(clicked,1);
-    renderData(doneTasks)
+    renderData(doneTasks);
   }))  
 }
 
-editTaskForm.addEventListener('submit', (e) => {
+editTaskForm.addEventListener('submit', e => {
     e.preventDefault();
     checkEditInputs();
-})
+});
 
 plusBtn.addEventListener('click', () => {
     popupAdd.classList.remove('hidden');
 });
 
-popupAdd.addEventListener('click', (e) => {
+popupAdd.addEventListener('click', e => {
     const {value} = e.target.classList;
     value === 'popup popup--add' ? popupAdd.classList.add('hidden') : '';
 });
 
-popupEdit.addEventListener('click', (e) => {
+popupEdit.addEventListener('click', e => {
     const {value} = e.target.classList;
     value === 'popup popup--edit' ? popupEdit.classList.add('hidden') : '';
 });
 
 sortBtn.addEventListener('click', switchSorting);
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', e => {
     e.preventDefault();
     checkAddInputs();
 });
 
-userOptionsList.addEventListener('click', (e) => {
+userOptionsList.addEventListener('click', e => {
     onloadActive.classList.remove('user-options__option--first');
     const target = e.target.closest('li');
     if (!target) return
@@ -288,7 +288,7 @@ userOptionsList.addEventListener('click', (e) => {
             break;
     }
     switchSorting(active);
-})
+});
 
 const renderMainLocalStorage = function () {
     if (localStorage.length === 0) return
