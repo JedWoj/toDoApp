@@ -1,120 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDoApp</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/0cb87f8cbd.js" crossorigin="anonymous"></script>
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ToDoApp</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/0cb87f8cbd.js" crossorigin="anonymous"></script>
+        <script defer src="script.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
 
-<body>
-    <header class="header">
-        <h1 class="header__heading">
-            ToDoApp
-        </h1>
-    </header>
-    <main class="wrap">
-        <nav class="user-options">
-            <ul class="user-options__list">
-                <li data-arr="allTasks"
-                    class="user-options__option user-options__option--planned user-options__option--first">
-                    Planned
-                </li>
-                <li data-arr="importantTasks" class="user-options__option  user-options__option--important">
-                    Important
-                </li>
-                <li data-arr="normalTasks" class="user-options__option  user-options__option--pending">
-                    Normal
-                </li>
-                <li data-arr="doneTasks" class="user-options__option  user-options__option--done">
-                    Done
-                </li>
-            </ul>
-        </nav>
-        <section class="tasks-container">
-            <div class="tasks">
-                <!-- <div class="task">
-                    <div class="task__txt-wrap">
-                        <h2 class="task__heading">
-                            Build this app!
-                        </h2>
-                        <div class="task__info">
-                            <p task__info-txt>
-                                Its very important due to inflation!
-                            </p>
-                        </div>
-                        <div class="task__date">
-                            <i class="fa-solid fa-calendar"></i>
-                            02-06-2022
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-star task__star"></i>
-                    <div class="task__btns">
-                        <div class="task__btn-edit">
-                            <i class="fa-solid fa-pen-to-square task__icon"></i>
-                        </div>
-                        <div class="task__btn-close">
-                            <i class="fa-solid fa-xmark task__icon"></i>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-            <p class="user-options__error hidden">
-                Lack of tasks! Please create new tasks!
-            </p>
-            <div class="create-task">
-                <div class="create-task__btn">
-                    <i class="fa-solid fa-plus create-task__icon"></i>
+    <body>
+        <header class="header">
+            <h1 class="header__heading">
+                ToDoApp
+            </h1>
+        </header>
+        <main class="wrap">
+            <nav class="user-options">
+                <ul class="user-options__list">
+                    <li data-arr="allTasks"
+                        class="user-options__option user-options__option--planned user-options__option--first">
+                        Planned
+                    </li>
+                    <li data-arr="importantTasks" class="user-options__option  user-options__option--important">
+                        Important
+                    </li>
+                    <li data-arr="normalTasks" class="user-options__option  user-options__option--pending">
+                        Normal
+                    </li>
+                    <li data-arr="doneTasks" class="user-options__option  user-options__option--done">
+                        Done
+                    </li>
+                </ul>
+            </nav>
+            <section class="tasks-container">
+                <div class="tasks">
                 </div>
-            </div>
-            <div class="sort-tasks">
-                <i class="fa-solid fa-sort sort-tasks__icon"></i>
-            </div>
+                <p class="user-options__error hidden">
+                    Lack of tasks! Please create new tasks!
+                </p>
+                <div class="create-task">
+                    <div class="create-task__btn">
+                        <i class="fa-solid fa-plus create-task__icon"></i>
+                    </div>
+                </div>
+                <div class="sort-tasks">
+                    <i class="fa-solid fa-sort sort-tasks__icon"></i>
+                </div>
+            </section>
+        </main>
+        <section class="popup popup--add hidden">
+            <form class="task-form">
+                <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
+                <textarea class="task-form__input task-form__input--info"></textarea>
+                <input type="date" class="task-form__input task-form__input--date">
+                <div class="task-form__options">
+                    <div class="task-form__option">
+                        <input type="radio" id="normal" value="normal" name="importance" class="task-form__radio" checked>
+                        <label for="normal" class="task-form__label">Normal</label>
+                    </div>
+                    <div class="task-form__option">
+                        <input type="radio" id="important" value="important" name="importance" class="task-form__radio">
+                        <label for="important" class="task-form__label">Important</label>
+                    </div>
+                </div>
+                <button class="task-form__btn">
+                    Add Task
+                </button>
+                <p class="task-form__error hidden">
+                    Please fill in all inputs!
+                </p>
+            </form>
         </section>
-    </main>
-    <section class="popup popup--add hidden">
-        <form class="task-form">
-            <input class="task-form__input task-form__input--title" type="text" placeholder="Add task title">
-            <textarea class="task-form__input task-form__input--info"></textarea>
-            <input type="date" class="task-form__input task-form__input--date">
-            <div class="task-form__options">
-                <div class="task-form__option">
-                    <input type="radio" id="normal" value="normal" name="importance" class="task-form__radio" checked>
-                    <label for="normal" class="task-form__label">Normal</label>
-                </div>
-                <div class="task-form__option">
-                    <input type="radio" id="important" value="important" name="importance" class="task-form__radio">
-                    <label for="important" class="task-form__label">Important</label>
-                </div>
-            </div>
-            <button class="task-form__btn">
-                Add Task
-            </button>
-            <p class="task-form__error hidden">
-                Please fill in all inputs!
-            </p>
-        </form>
-    </section>
-    <section class="popup popup--edit hidden">
-        <form class="edit-task">
-            <input class="edit-task__input edit-task__input--title" type="text" placeholder="Change task title">
-            <textarea class="edit-task__input edit-task__input--info"></textarea>
-            <input type="date" class="edit-task__input edit-task__input--date">
-            <button class="edit-task__btn">
-                Change task
-            </button>
-            <p class="edit-task__error hidden">
-                Please fill in all inputs!
-            </p>
-        </form>
-    </section>
-</body>
+        <section class="popup popup--edit hidden">
+            <form class="edit-task">
+                <input class="edit-task__input edit-task__input--title" type="text" placeholder="Change task title">
+                <textarea class="edit-task__input edit-task__input--info"></textarea>
+                <input type="date" class="edit-task__input edit-task__input--date">
+                <button class="edit-task__btn">
+                    Change task
+                </button>
+                <p class="edit-task__error hidden">
+                    Please fill in all inputs!
+                </p>
+            </form>
+        </section>
+    </body>
 
 </html>

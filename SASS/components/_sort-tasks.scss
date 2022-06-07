@@ -3,9 +3,13 @@
     top: 2px;
     right: 5rem;
 
-        &:hover {
-            cursor: pointer;
-        }
+    @media only screen and (max-width: $bp-small) {
+        right: 2.5rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
 
     &__icon {
         font-size: 2rem;

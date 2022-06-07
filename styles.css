@@ -21,7 +21,7 @@ html {
   display: flex;
 }
 
-@media only screen and (max-width: 60rem) {
+@media only screen and (max-width: 37.5em) {
   .wrap {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -44,6 +44,12 @@ html {
   padding: 2rem;
   background-color: #25c2a5;
   position: relative;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .tasks-container {
+    min-height: calc(100vh - 10.1rem);
+  }
 }
 
 .popup {
@@ -156,7 +162,7 @@ html {
   text-align: center;
 }
 
-@media only screen and (max-width: 60rem) {
+@media only screen and (max-width: 37.5em) {
   .user-options__list {
     -ms-grid-columns: (1fr)[4];
         grid-template-columns: repeat(4, 1fr);
@@ -174,7 +180,7 @@ html {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 60rem) {
+@media only screen and (max-width: 37.5em) {
   .user-options__option {
     padding: 1rem;
     font-size: 1.4rem;
@@ -204,6 +210,13 @@ html {
   right: 7vh;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .create-task {
+    bottom: 4vh;
+    right: 4vh;
+  }
+}
+
 .create-task__btn {
   background-color: #ffeffe;
   color: #FFC501;
@@ -223,6 +236,14 @@ html {
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .create-task__btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 2rem;
+  }
 }
 
 .create-task__btn:hover {
@@ -376,6 +397,12 @@ html {
   position: absolute;
   top: 2px;
   right: 5rem;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .sort-tasks {
+    right: 2.5rem;
+  }
 }
 
 .sort-tasks:hover {

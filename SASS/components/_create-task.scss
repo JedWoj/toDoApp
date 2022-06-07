@@ -3,6 +3,11 @@
     bottom: 7vh;
     right: 7vh;
 
+    @media only screen and (max-width: $bp-small) {
+        bottom: 4vh;
+        right: 4vh;
+    }
+
     &__btn {
         background-color: $color-tertiary;
         color: $color-secondary;
@@ -15,6 +20,12 @@
         font-size: 3rem;
         transition: all 0.4s;
         cursor: pointer;
+
+        @media only screen and (max-width: $bp-small) {
+            width: 3.5rem;
+            height: 3.5rem;
+            font-size: 2rem;
+        }
 
         &:hover {
             transform: rotate(45deg);
