@@ -20,7 +20,7 @@ const sortBtn = document.querySelector('.sort-tasks');
 
 const normalTasks = [];
 const importantTasks = [];
-let doneTasks = [];
+let doneTasks;
 let newOrder = 'ascending';
 let movedIds = [];
 let currentlyEdited;
@@ -47,7 +47,6 @@ const moveToDone = function (id) {
     renderData(active);
 }
 
-
 const doneTasksHandler = function () {
     const checkIcons = document.querySelectorAll('.task__icon--check');
     checkIcons.forEach(icon => icon.addEventListener('click', (e) => {
@@ -62,7 +61,7 @@ const changeImportance = function (id) {
     const changed = allTasks[clicked];
     changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
     if (changed.importance === 'normal') {
-        const idx = importantTasks.findIndex(tsk => tsk.id === allTasks[clicked].id);
+        const idx = importantTasks.findIndex(tsk => tsk.id === changed.id);
         importantTasks.splice(idx, 1);
         normalTasks.push(changed);
     } else {
@@ -299,7 +298,7 @@ userOptionsList.addEventListener('click', (e) => {
 
 const renderLocalStorage = function () {
     if (localStorage.length === 0) return
-    for (let i = 0; i < localStorage.length - 1 + movedIds.length; i++) {
+    for (let i = 0; i < localStorage.length + movedIds.length; i++) {
         if (localStorage.getItem(i) === null) continue
         allTasks.push(JSON.parse(localStorage.getItem(i)));
         JSON.parse(localStorage.getItem(i)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(i))) : importantTasks.push(JSON.parse(localStorage.getItem(i)));
@@ -322,8 +321,9 @@ const saveMovedTasks = function() {
 
 const getSavedMovedTasks = function() {
     doneTasks = [];
-    for (let i = 0; i < localStorage.length - 1; i++) {
+    for (let i = 0; i < localStorage.length + movedIds.length; i++) {
         if (JSON.parse(localStorage.getItem(`moved${i}`)) === null) continue
+        console.log(i);
         doneTasks.push(JSON.parse(localStorage.getItem(`moved${i}`)));
     }
 }
