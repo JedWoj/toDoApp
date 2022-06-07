@@ -48,7 +48,8 @@
     }
 
     &__btn-edit,
-    &__btn-close {
+    &__btn-close,
+    &__btn-del {
         cursor: pointer;
         font-size: 1.6rem;
     }
@@ -59,5 +60,9 @@
 
     &__btn-close {
         color: $color-tertiary;
+    }
+
+    &__btn-del {
+        color: $color-error;
     }
 }

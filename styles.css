@@ -137,7 +137,7 @@ html {
   gap: 6px;
 }
 
-.task__btn-edit, .task__btn-close {
+.task__btn-edit, .task__btn-close, .task__btn-del {
   cursor: pointer;
   font-size: 1.6rem;
 }
@@ -148,6 +148,10 @@ html {
 
 .task__btn-close {
   color: #ffeffe;
+}
+
+.task__btn-del {
+  color: #da1f1f;
 }
 
 .user-options__list {

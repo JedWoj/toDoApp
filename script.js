@@ -20,7 +20,7 @@ const sortBtn = document.querySelector('.sort-tasks');
 
 const normalTasks = [];
 const importantTasks = [];
-const doneTasks = [];
+let doneTasks = [];
 let newOrder = 'ascending';
 let movedIds = [];
 let currentlyEdited;
@@ -43,6 +43,7 @@ const moveToDone = function (id) {
     doneTasks.push(moved);
     removeFromLocalStorage(moved);
     saveMovedIds();
+    saveMovedTasks();
     renderData(active);
 }
 
@@ -115,7 +116,13 @@ const renderData = function (data) {
                     </div>
                 </div>
                 <i class="fa-solid fa-star task__star ${obj.importance === 'important' ? 'task__star--important' : ''}"></i>
-                ${data === doneTasks ? '' : `<div class="task__btns">
+                ${data === doneTasks ? 
+                `<div class="task__btns">
+                    <div class="task__btn-del">
+                        <i class="fa-solid fa-xmark task__icon task__icon--delete"></i>
+                    </div>
+                 </div>` : 
+                `<div class="task__btns">
                     <div class="task__btn-edit">
                         <i class="fa-solid fa-pen-to-square task__icon task__icon--edit"></i>
                     </div>
@@ -126,11 +133,17 @@ const renderData = function (data) {
             </div>`
         tasksContainer.insertAdjacentHTML('beforeend', div);
     })
+    menageHandlers();
+    getSavedMovedTasks();
+    if (!localStorage.getItem('id')) setLocalStorage();
+    updateLocalStorage();
+}
+
+const menageHandlers = function() {
     importanceHandler();
     doneTasksHandler();
     editTaskHandler();
-    if (!localStorage.getItem('id')) setLocalStorage();
-    updateLocalStorage();
+    deleteTaskHandler();
 }
 
 const addClickedBtnStyles = function (target) {
@@ -214,6 +227,17 @@ const switchSorting = function () {
     newOrder === 'ascending' ? sortTasksAscending() : sortTasksDescending();
 }
 
+const deleteTaskHandler = function() {
+    const deleteBtns = document.querySelectorAll('.task__btn-del');
+    deleteBtns.forEach(btn => btn.addEventListener('click', (e) => {
+    const target = e.target.closest('.task').dataset.id;
+    const clicked = doneTasks.findIndex(tsk => tsk.id === +target);
+    localStorage.removeItem(`moved${doneTasks[clicked].id}`);
+    doneTasks.splice(clicked,1);
+    renderData(doneTasks)
+  }))  
+}
+
 editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     checkEditInputs();
@@ -270,7 +294,7 @@ userOptionsList.addEventListener('click', (e) => {
             active = doneTasks;
             break;
     }
-    switchSorting();
+    switchSorting(active);
 })
 
 const renderLocalStorage = function () {
@@ -288,6 +312,20 @@ const removeFromLocalStorage = function (removed) {
         id
     } = removed;
     localStorage.removeItem(id);
+}
+
+const saveMovedTasks = function() {
+    doneTasks.forEach(tsk => {
+        localStorage.setItem(`moved${tsk.id}`, JSON.stringify(tsk));
+    })
+}
+
+const getSavedMovedTasks = function() {
+    doneTasks = [];
+    for (let i = 0; i < localStorage.length - 1; i++) {
+        if (JSON.parse(localStorage.getItem(`moved${i}`)) === null) continue
+        doneTasks.push(JSON.parse(localStorage.getItem(`moved${i}`)));
+    }
 }
 
 const saveMovedIds = function () {

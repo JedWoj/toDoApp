@@ -13,15 +13,11 @@
         padding: 1rem 2rem;
         width: 30rem;
 
-        &--title {}
-
         &--info {
             resize: none;
             height: 15rem;
             font-family: $font-primary;
         }
-
-        &--date {}
     }
 
     &__options {
