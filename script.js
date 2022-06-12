@@ -29,8 +29,8 @@
   let active = allTasks;
   let id;
 
-  const moveToDone = function (id) {
-    const checked = allTasks.findIndex((tsk) => tsk.id === Number(id));
+  function moveToDone(idx) {
+    const checked = allTasks.findIndex((tsk) => tsk.id === Number(idx));
     if (allTasks[checked].importance === 'normal') {
       const checkedNormal = normalTasks.findIndex((tsk) => tsk === allTasks[checked]);
       normalTasks.splice(checkedNormal, 1);
@@ -45,18 +45,18 @@
     setSavedMovedIds();
     saveMovedTasks();
     renderData(active);
-  };
+  }
 
-  const doneTasksHandler = function () {
+  function doneTasksHandler() {
     const checkIcons = document.querySelectorAll('.task__icon--check');
     checkIcons.forEach((icon) => icon.addEventListener('click', (e) => {
       const target = e.target.closest('.task').dataset.id;
       if (active === doneTasks) return;
       moveToDone(target);
     }));
-  };
+  }
 
-  const changeImportance = function (id) {
+  function changeImportance(id) {
     const clicked = allTasks.findIndex((tsk) => tsk.id === Number(id));
     const changed = allTasks[clicked];
     changed.importance === 'normal' ? changed.importance = 'important' : changed.importance = 'normal';
@@ -70,17 +70,17 @@
       importantTasks.push(changed);
     }
     renderData(active);
-  };
+  }
 
-  const importanceHandler = function () {
+  function importanceHandler() {
     stars = [...document.querySelectorAll('.task__star')];
     stars.forEach((star) => star.addEventListener('click', (e) => {
       const target = e.target.closest('.task').dataset.id;
       changeImportance(target);
     }));
-  };
+  }
 
-  const addData = function (title, info, date, importance) {
+  function addData(title, info, date, importance) {
     const obj = {
       title,
       info,
@@ -93,9 +93,9 @@
     allTasks.push(obj);
     active === undefined ? active = allTasks : active = active;
     addClickedBtnStyles(onloadActive);
-  };
+  }
 
-  const renderData = function (data) {
+  function renderData(data) {
     tasksContainer.innerHTML = '';
     data.forEach((obj) => {
       const div = `
@@ -136,21 +136,21 @@
     getSavedMovedTasks();
     if (!localStorage.getItem('id')) setMainLocalStorage();
     updateMainLocalStorage();
-  };
+  }
 
-  const menageHandlers = function () {
+  function menageHandlers() {
     importanceHandler();
     doneTasksHandler();
     editTaskHandler();
     deleteTaskHandler();
-  };
+  }
 
-  const addClickedBtnStyles = function (target) {
+  function addClickedBtnStyles(target) {
     userOptions.forEach((option) => option.classList.remove('user-options__option--active'));
     target.classList.add('user-options__option--active');
-  };
+  }
 
-  const checkAddInputs = function () {
+  function checkAddInputs() {
     const checked = [...document.querySelectorAll('.task-form__radio')].find((radio) => radio.checked).id;
     if (addDate.value === '' || addTitle.value === '' || addAdditionalInfo.value === '') {
       addError.classList.remove('hidden');
@@ -163,9 +163,9 @@
     addTitle.value = '';
     addAdditionalInfo.value = '';
     addDate.value = '';
-  };
+  }
 
-  const editTask = function () {
+  function editTask() {
     const newTitle = editTitle.value;
     const newInfo = editInfo.value;
     const newDate = editDate.value;
@@ -173,59 +173,59 @@
     currentlyEdited.info = newInfo;
     currentlyEdited.date = newDate;
     renderData(active);
-  };
+  }
 
-  const checkEditInputs = function () {
+  function checkEditInputs() {
     if (editDate.value === '' || editInfo.value === '', editTitle.value === '') return editTaskError.classList.remove('hidden');
     editTaskError.classList.add('hidden');
     popupEdit.classList.add('hidden');
     editTask();
-  };
+  }
 
-  const getEditedTask = function (id) {
-    const clicked = allTasks.findIndex((tsk) => tsk.id === Number(id));
+  function getEditedTask(idx) {
+    const clicked = allTasks.findIndex((tsk) => tsk.id === Number(idx));
     const data = allTasks[clicked];
     currentlyEdited = data;
     return data;
-  };
+  }
 
-  const renderPreviousValues = function (target) {
+  function renderPreviousValues(target) {
     const data = getEditedTask(target);
     editTitle.value = data.title;
     editInfo.value = data.info;
     editDate.value = data.date;
-  };
+  }
 
-  const showTaskData = function (target) {
+  function showTaskData(target) {
     renderPreviousValues(target);
     popupEdit.classList.remove('hidden');
-  };
+  }
 
-  const editTaskHandler = function () {
+  function editTaskHandler() {
     const editIcons = document.querySelectorAll('.task__icon--edit');
     editIcons.forEach((icon) => icon.addEventListener('click', (e) => {
       const target = e.target.closest('.task').dataset.id;
       showTaskData(target);
     }));
-  };
+  }
 
-  const sortTasksDescending = function () {
+  function sortTasksDescending() {
     const order = active.sort((a, b) => new Date(b.date) - new Date(a.date));
     renderData(order);
     newOrder = 'ascending';
-  };
+  }
 
-  const sortTasksAscending = function () {
+  function sortTasksAscending() {
     const order = active.sort((a, b) => new Date(a.date) - new Date(b.date));
     renderData(order);
     newOrder = 'descending';
-  };
+  }
 
-  const switchSorting = function () {
+  function switchSorting() {
     newOrder === 'ascending' ? sortTasksAscending() : sortTasksDescending();
-  };
+  }
 
-  const deleteTaskHandler = function () {
+  function deleteTaskHandler() {
     const deleteBtns = document.querySelectorAll('.task__btn-del');
     deleteBtns.forEach((btn) => btn.addEventListener('click', (e) => {
       const target = e.target.closest('.task').dataset.id;
@@ -234,7 +234,7 @@
       doneTasks.splice(clicked, 1);
       renderData(doneTasks);
     }));
-  };
+  }
 
   editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -289,7 +289,7 @@
     switchSorting(active);
   });
 
-  const renderMainLocalStorage = function () {
+  function renderMainLocalStorage() {
     if (localStorage.length === 0) return;
     for (let i = 0; i < localStorage.length + movedIds.length; i++) {
       if (localStorage.getItem(i) === null) continue;
@@ -297,55 +297,55 @@
       JSON.parse(localStorage.getItem(i)).importance === 'normal' ? normalTasks.push(JSON.parse(localStorage.getItem(i))) : importantTasks.push(JSON.parse(localStorage.getItem(i)));
     }
     renderData(active);
-  };
+  }
 
-  const removeFromLocalStorage = function (removed) {
+  function removeFromLocalStorage(removed) {
     const { id } = removed;
     localStorage.removeItem(id);
-  };
+  }
 
-  const saveMovedTasks = function () {
+  function saveMovedTasks() {
     doneTasks.forEach((tsk) => {
       localStorage.setItem(`moved${tsk.id}`, JSON.stringify(tsk));
     });
-  };
+  }
 
-  const getSavedMovedTasks = function () {
+  function getSavedMovedTasks() {
     doneTasks = [];
     for (let i = 0; i < localStorage.length + movedIds.length; i++) {
       if (JSON.parse(localStorage.getItem(`moved${i}`)) === null) continue;
       doneTasks.push(JSON.parse(localStorage.getItem(`moved${i}`)));
     }
-  };
+  }
 
-  const setSavedMovedIds = function () {
+  function setSavedMovedIds() {
     localStorage.setItem('movedIds', JSON.stringify(movedIds));
-  };
+  }
 
-  const getSavedMovedIds = function () {
+  function getSavedMovedIds() {
     localStorage.getItem('movedIds') === null ? movedIds = [] : movedIds = JSON.parse(localStorage.getItem('movedIds'));
-  };
+  }
 
-  const getLocalStorageId = function () {
+  function getLocalStorageId() {
     localStorage.getItem('id') === null ? id = 0 : id = +localStorage.getItem('id');
-  };
+  }
 
-  const updateMainLocalStorage = function () {
+  function updateMainLocalStorage() {
     allTasks.forEach((tsk) => localStorage.setItem(`${tsk.id}`, JSON.stringify(tsk)));
     localStorage.setItem('id', JSON.stringify(id));
-  };
+  }
 
-  const setMainLocalStorage = function () {
+  function setMainLocalStorage() {
     allTasks.forEach((task) => localStorage.setItem(`${task.id}`, JSON.stringify(task)));
-  };
+  }
 
-  const init = function () {
+  function init() {
     addClickedBtnStyles(onloadActive);
     getLocalStorageId();
     getSavedMovedIds();
     renderMainLocalStorage();
     sortTasksAscending();
-  };
+  }
 
   init();
 })();
